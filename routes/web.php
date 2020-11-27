@@ -14,3 +14,27 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix'=>'admin','as'=>'admin'], function(){
+    Route::get('/shop_management', function () {
+        return view('admin/commodity_list');
+    });
+});
+
+Route::group(['prefix'=>'customer','as'=>'customer'], function(){
+    Route::get('/shopping_page', function () {
+        return view('customer/shopping_page');
+    });
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
