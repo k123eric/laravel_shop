@@ -18,6 +18,7 @@ class CommodityResource extends JsonResource
             'name' => $this->name,
             'amount' => $this->amount,
             'price' => $this->price,
+            'image_url' => $this->image_url,
         ];
     }
 }
