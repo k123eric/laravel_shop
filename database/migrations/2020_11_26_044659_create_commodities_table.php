@@ -16,9 +16,10 @@ class CreateCommoditiesTable extends Migration
         Schema::create('commodities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('category')->nullable();
-            $table->integer('amount');
             $table->integer('price');
+            $table->integer('amount');
+            $table->string('introduction');
+            $table->char('image_url');
             $table->timestamps();
         });
     }
