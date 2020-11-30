@@ -9,22 +9,32 @@ use Illuminate\Http\Request;
 
 class CommodityController extends Controller
 {
-    public function index(): CommodityResourceCollection
+    public function index()
     {
-        return new CommodityResourceCollection(Commodity::paginate());
+
     }
 
-    public function show(Commodity $commodity)
+    public function admin_show()
     {
-        return new CommodityResource ($commodity);
+        return view('/admin/commodity_list')->with('commodities',Commodity::all());
+    }
+
+    public function commodity_show_all()
+    {
+        return view('customer/shopping_page')->with('commodities',Commodity::all());
+    }
+
+    public  function commodity_show_one(Commodity $commodity)
+    {
+        return view('/customer/commodity')->with('commodity',$commodity);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|max:16|min:2',
-            'category'  => '',
-            'price'     => 'required',
+            'price' => 'required',
+            'amount' => 'required',
         ]);
 
         $commodity = Commodity::create($request->all());
