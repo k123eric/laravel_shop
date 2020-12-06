@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,6 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/button.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
@@ -62,8 +63,7 @@
                                                      $('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ url('/admin/commodity_management')}}"
-                                       onclick="event.preventDefault();">
+                                    <a class="dropdown-item" href="{{ route('admin.commodity_management')}}">
                                         {{ __('商品管理') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -98,6 +98,11 @@
             function topFunction() {
                 $("html, body").animate({scrollTop: 0}, 500); // For Chrome, Firefox, IE and Opera
             }
+
+            function open_cart() {
+                window.location.href="{{route('customer.cart')}}";
+            }
+
         </script>
     </div>
 </body>
