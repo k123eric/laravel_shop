@@ -19,6 +19,10 @@ class CommodityController extends Controller
         return view('/admin/commodity_list')->with('commodities',Commodity::all());
     }
 
+    public function commodity_new(){
+        return view('/admin/new_commodity');
+    }
+
     public function commodity_show_all()
     {
         return view('customer/shopping_page')->with('commodities',Commodity::all());
@@ -50,6 +54,6 @@ class CommodityController extends Controller
     public function destroy(Commodity $commodity)
     {
         $commodity->delete();
-        return response()->json();
+        return redirect('admin/commodity_management');
     }
 }
