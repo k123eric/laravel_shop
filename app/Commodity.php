@@ -9,8 +9,9 @@ class Commodity extends Model
     protected $fillable = [
         'id',
         'name',
-        'category',
-        'amount',
         'price',
+        'amount',
+        'introduction'.
+        'image_url',
     ];
 }
