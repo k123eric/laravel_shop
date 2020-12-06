@@ -10,7 +10,7 @@ $factory->define(Commodity::class, function (Faker $faker) {
         'name' => $faker->name,
         'amount' => $faker->numberBetween($min = 0, $max = 12),
         'price' => $faker->numberBetween($min = 1000, $max = 9000),
-        'introduction' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+        'introduction' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
         'image_url' => $faker->imageUrl('640','480','cats'),
     ];
 });
