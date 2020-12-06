@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="links">
-            <a href="{{ url('/customer/shop')}}">GOGOGOGOGO</a>
+            <a href="{{ route('customer.shop')}}">GOGOGO</a>
     </div>
 @endsection
