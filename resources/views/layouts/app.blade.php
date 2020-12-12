@@ -46,6 +46,7 @@
                                     <li><hr class="dropdown-divider"></li>
                                     @if(Auth::user()->identity=='admin')
                                         <li><a class="dropdown-item" href="{{route('admin.commodity_management')}}">商品管理</a></li>
+                                        <li><a class="dropdown-item" href="#">訂單管理</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                     @endif
                                     <li><a class="dropdown-item" href="{{route('logout')}}">登出</a></li>
