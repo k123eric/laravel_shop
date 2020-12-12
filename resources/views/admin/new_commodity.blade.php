@@ -77,8 +77,8 @@
 
             if(image_url === ''){
                 image_preview.attr('src',loading_url);
+                return;
             }
-
             image_preview.attr('src',$(this).val());
         });
     </script>
