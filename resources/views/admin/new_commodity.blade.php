@@ -73,13 +73,13 @@
 
         $('input[name="image_url"]').keyup(function(){
             let image_url = $(this).val();
-            let image_preciew = $('#image_preview');
+            let image_preview = $('#image_preview');
 
             if(image_url === ''){
-                image_preciew.attr('src',loading_url);
+                image_preview.attr('src',loading_url);
             }
 
-            image_preciew.attr('src',$(this).val());
+            image_preview.attr('src',$(this).val());
         });
     </script>
 @endsection
