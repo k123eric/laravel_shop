@@ -3,7 +3,7 @@
 @section('title', '商店頁面')
 
 @section('content')
-    <div class="row" style="width: 1918px; padding:0 20px 0 210px">
+    <div class="row" style="width: 1918px; padding:0 20px 0 220px">
         @foreach($commodities as $commodity)
             <div class="card" style="width: 17rem; margin: 30px 14px 0 14px">
                 <img src="{{$commodity->image_url}}" class="card-img-top" alt="無法顯示圖片">
