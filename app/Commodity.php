@@ -11,7 +11,7 @@ class Commodity extends Model
         'name',
         'price',
         'amount',
-        'introduction'.
+        'introduction',
         'image_url',
     ];
 }
