@@ -9,6 +9,7 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    const swal = (window.swal = require("sweetalert"));
 
     require('bootstrap');
     require('bootstrap/dist/js/bootstrap.bundle');
