@@ -21,7 +21,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
         return view('/admin/new_commodity');
     })->name('new_commodity');   //商品新增頁面
     Route::get('/commodity/update/{commodity}', 'CommodityController@admin_update')->name('update_commodity');
-    Route::post('/commodity/store', 'CommodityController@store');
+    Route::post('/commodity/store', 'CommodityController@store')->name('store');
     Route::post('/commodity/update', 'CommodityController@update');
     Route::get('/commodity/delete/{commodity}','CommodityController@destroy');
 });
