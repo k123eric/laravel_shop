@@ -1,5 +1,4 @@
 <?php
-use Illuminate\Support\Facades\Route;
 
 use App\Commodity;
 
@@ -14,15 +13,17 @@ use App\Commodity;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','CommodityController@commodity_show_all')->name('shop');
 
 Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
     Route::get('/commodity', 'CommodityController@admin_show')->name('commodity_management');   //商品管理頁面
-    Route::get('/commodity/new', 'CommodityController@commodity_new')->name('new_commodity');   //商品新增頁面
-//    Route::post('/store', 'CommodityController@store');
-//    Route::get('/commodity/delete/{commodity}','CommodityController@destroy');
+    Route::get('/commodity/new', function (){
+        return view('/admin/new_commodity');
+    })->name('new_commodity');   //商品新增頁面
+    Route::get('/commodity/update/{commodity}', 'CommodityController@admin_update')->name('update_commodity');
+    Route::post('/commodity/store', 'CommodityController@store');
+    Route::post('/commodity/update', 'CommodityController@update');
+    Route::get('/commodity/delete/{commodity}','CommodityController@destroy');
 });
 
 Route::group(['prefix'=>'customer','as'=>'customer.'], function(){
@@ -33,6 +34,18 @@ Route::group(['prefix'=>'customer','as'=>'customer.'], function(){
     Route::get('/cart/delete/{order_detail}', 'OrderDetailController@destroy');
 });
 
-Auth::routes();
+Route::get('/login',function(){
+    return view('/user/login');
+});
+Route::post('/login','UserController@login')->name('login');
+
+Route::get('/register',function(){
+    return view('/user/register');
+});
+Route::post('/register','UserController@register')->name('register');
+
+Route::get('/logout','UserController@logout')->name('logout');
+
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
