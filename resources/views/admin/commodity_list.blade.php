@@ -10,21 +10,44 @@
             </div>
         </div>
 
+        <div style="padding-top: 20px">tips:滑鼠置於商品名稱上顯示圖片</div>
         <div class="row">
-            @foreach($commodities as $value)
-                <div class="card" style="width: 17rem; margin: 30px 6px 0 6px">
-                    <img src="{{$value->image_url}}" class="card-img-top" alt="無法顯示圖片">
-                    <div class="card-body">
-                        <h5 class="card-title">{{$value->name}}</h5>
-                        <p class="card-text">價格:{{$value->price}}</p>
-                        <a style="float:right" href="/admin/commodity/delete/{{$value->id}}"
-                           class="text-red-500 delete-confirm font-medium ml-2">刪除</a>
-                        <a style="float:right" href="/admin/commodity/update/"
+            <ul class="list-group list-group-horizontal" style="text-align:center">
+                <li class="list-group-item" style="width: 80px">編號</li>
+                <li class="list-group-item" style="width: 420px">商品名稱</li>
+                <li class="list-group-item" style="width: 230px">商品價格</li>
+                <li class="list-group-item" style="width: 230px">商品數量</li>
+                <li class="list-group-item" style="width: 180px">操作</li>
+            </ul>
+            @foreach($commodities as $commodity)
+                <ul class="list-group list-group-horizontal" style="text-align:center">
+                    <div class="card" id="img_card" style="width: 18rem;position:absolute;margin-left: 400px; z-index:999;display:none"><img src="{{$commodity->image_url}}" class="img-fluid" alt="無法顯示圖片"></div>
+                    <li class="list-group-item" id="{{$commodity->id}}" style="width: 80px">{{$commodity->id}}</li>
+                    <li class="list-group-item" id="commodity_name" style="width: 420px">{{$commodity->name}}</li>
+                    <li class="list-group-item" style="width: 230px">{{$commodity->price}}</li>
+                    <li class="list-group-item" style="width: 230px">{{$commodity->amount}}</li>
+                    <li class="list-group-item" style="width: 90px">
+                        <a href="/admin/commodity/update/{{$commodity->id}}"
                            class="text-red-500 delete-confirm font-medium ml-2">修改</a>
-                    </div>
-                </div>
+                    </li>
+                    <li class="list-group-item" style="width: 90px">
+                        <a href="/admin/commodity/delete/{{$commodity->id}}"
+                           class="text-red-500 delete-confirm font-medium ml-2">刪除</a>
+                    </li>
+                </ul>
             @endforeach
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('.list-group').find('#commodity_name').hover(function(){
+                let img_card = $(this).parent().find('#img_card');
+                img_card.css('display','');
+            }, function(){
+                let img_card = $(this).parent().find('#img_card');
+                img_card.css('display','none');
+            });
+        });
+    </script>
 @endsection
 
