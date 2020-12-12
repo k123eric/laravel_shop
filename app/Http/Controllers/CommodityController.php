@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\CommodityResource;
-use App\Http\Resources\CommodityResourceCollection;
 use App\Commodity;
 use Illuminate\Http\Request;
 
@@ -38,12 +36,20 @@ class CommodityController extends Controller
 
     public function store(Request $request,Commodity $commodity)
     {
-        $request->validate([
-            'name' => 'required|max:16|min:2',
-            'price' => 'required',
-            'amount' => 'required',
+        $validated = $request->validate([
+            'name' => 'required|max:16|min:1|unique:commodities',
+            'price' => 'required|numeric|min:1|max:999999',
+            'amount' => 'required|numeric|min:1|max:999',
+            'introduction' => 'required|max:255',
+            'image_url' => 'required|max:255|url'
         ]);
-//
+
+        $name = $request->old('name');
+        $price = $request->old('price');
+        $amount = $request->old('amount');
+        $introduction = $request->old('introduction');
+        $image_url = $request->old('image_url');
+
         $commodity = new Commodity([
             'name' => $request->name,
             'price' => $request->price,
@@ -53,43 +59,40 @@ class CommodityController extends Controller
         ]);
 //
         $commodity -> save();
-        return redirect(url('admin/commodity'));
-
-//        $commodity = Commodity::create($request->all());
-//        return new CommodityResource($commodity);
+        return redirect(url('admin/commodity'))->with('status', '商品新增成功!');
     }
 
     public function update(Request $request)
     {
-        $new_commodity = new Commodity([
+        $validated = $request->validate([
+            'name' => 'required|max:16|min:1',
+            'price' => 'required|numeric|min:1|max:999999',
+            'amount' => 'required|numeric|min:1|max:999',
+            'introduction' => 'required|max:255',
+            'image_url' => 'required|max:255|url'
+        ]);
+
+        $name = $request->old('name');
+        $price = $request->old('price');
+        $amount = $request->old('amount');
+        $introduction = $request->old('introduction');
+        $image_url = $request->old('image_url');
+
+        Commodity::where('id',$request->id)->update([
             'name' => $request->name,
             'price' => $request->price,
             'amount' => $request->amount,
             'introduction' => $request->introduction,
             'image_url' => $request->image_url,
         ]);
-
-//        $new_commodity->name = $request->name;
-//        $new_commodity->price = $request->price;
-//        $new_commodity->amount = $request->amount;
-//        $new_commodity->introduction = $request->introduction;
-//        $new_commodity->image_url = $request->image_url;
-        Commodity::where('id',$request->commodity_id)->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'amount' => $request->amount,
-            'introduction' => $request->introduction,
-            'image_url' => $request->image_url,
-        ]);
-        return redirect('admin/commodity');
-
-//        $commodity->update($request->all());
-//        return new CommodityResource($commodity);
+        return redirect(url('admin/commodity'))->with('status', '商品修改成功!');
     }
 
     public function destroy(Commodity $commodity)
     {
         $commodity->delete();
-        return redirect('admin/commodity');
+        return response()->json([
+            'msg' => '成功刪除商品!'
+        ]);
     }
 }
