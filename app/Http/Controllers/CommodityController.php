@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
 use App\Commodity;
 use Illuminate\Http\Request;
 
 class CommodityController extends Controller
 {
-    public function index()
-    {
-
-    }
 
     public function admin_show()
     {
@@ -43,12 +38,6 @@ class CommodityController extends Controller
             'introduction' => 'required|max:255',
             'image_url' => 'required|max:255|url'
         ]);
-
-        $name = $request->old('name');
-        $price = $request->old('price');
-        $amount = $request->old('amount');
-        $introduction = $request->old('introduction');
-        $image_url = $request->old('image_url');
 
         $commodity = new Commodity([
             'name' => $request->name,
