@@ -1,7 +1,4 @@
 <?php
-
-use App\Commodity;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +12,7 @@ use App\Commodity;
 
 Route::get('/','CommodityController@commodity_show_all')->name('shop');
 
-Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
+Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'login','verify'=>true], function(){
     //商品管理頁面
     Route::get('/commodity', 'CommodityController@admin_show')->name('commodity_management');
     //商品新增頁面
@@ -31,7 +28,6 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
     //刪除商品
 //    Route::get('/commodity/delete/{commodity}','CommodityController@destroy')->name('delete');
     Route::get('/commodity/delete/{commodity}','CommodityController@destroy')->name('delete');
-
 });
 
 Route::group(['prefix'=>'customer','as'=>'customer.'], function(){
