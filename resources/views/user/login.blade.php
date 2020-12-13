@@ -15,7 +15,7 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{old('email')}}">
                                 </div>
                             </div>
 
@@ -24,6 +24,11 @@
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" name="password">
+                                    @if (session('status'))
+                                        <div class="alert alert-danger" style="margin-top: 20px">
+                                            {{ session('status') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
