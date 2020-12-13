@@ -3,7 +3,7 @@
 @section('title', '管理頁面')
 
 @section('content')
-    <div class="container" style="padding-top:40px">
+    <div class="container" style="padding-top:40px;padding-bottom: 200px">
         <div class="row">
             <div class="col-md-6">
                 <a href="{{ route('admin.new_commodity')}}"><button class="btn btn-success">新增商品</button></a>
@@ -44,7 +44,6 @@
     </div>
     <script>
         $(document).ready(function(){
-
         })
 
         $('.list-group').find('#commodity_name').hover(function(){
