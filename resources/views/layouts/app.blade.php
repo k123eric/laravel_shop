@@ -30,7 +30,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ url('/customer/shop') }}">Home</a>
                         </li>
-                        <li class="nav-item dropdown" style="position:fixed;margin-left: 1620px">
+                        <li class="nav-item dropdown" style="position:fixed;margin-left: 1620px;user-select:none;">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" aria-expanded="false">
                                 @if(Auth::check())
                                     {{Auth::user()->name}}
