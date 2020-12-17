@@ -3,7 +3,7 @@
 @section('title', '管理頁面')
 
 @section('content')
-    <div class="container" style="padding-top:40px;padding-bottom: 200px">
+    <div class="container" style="padding-top:40px;padding-bottom: 400px">
         <div class="row">
             <div class="col-md-6">
                 <a href="{{ route('admin.new_commodity')}}"><button class="btn btn-success">新增商品</button></a>
@@ -27,7 +27,7 @@
             </ul>
             @foreach($commodities as $commodity)
                 <ul class="list-group list-group-horizontal" id="{{$commodity->id}}" style="text-align:center;line-height:54px;">
-                    <div class="card" id="img_card" style="width: 18rem;position:absolute;margin-left: 400px; z-index:999;display:none"><img src="{{$commodity->image_url}}" class="img-fluid" alt="無法顯示圖片"></div>
+                    <div class="card" id="img_card" style="max-width: 20rem;max-height: 20rem;position:absolute;margin-left: 400px; z-index:999;display:none"><img src="{{$commodity->image_url}}" class="img-fluid" alt="無法顯示圖片"></div>
                     <li class="list-group-item" style="width: 80px">{{$commodity->id}}</li>
                     <li class="list-group-item" id="commodity_name" style="width: 420px">{{$commodity->name}}</li>
                     <li class="list-group-item" style="width: 200px">{{$commodity->price}}</li>
