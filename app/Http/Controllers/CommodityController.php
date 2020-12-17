@@ -54,7 +54,7 @@ class CommodityController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:16|min:1',
+            'name' => 'required|max:20|min:1',
             'price' => 'required|numeric|min:1|max:999999',
             'amount' => 'required|numeric|min:1|max:999',
             'introduction' => 'required|max:255',
