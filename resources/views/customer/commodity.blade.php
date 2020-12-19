@@ -15,13 +15,23 @@
                     <p class="card-text" style="margin-top: 1%">商品剩餘數量:{{$commodity->amount}}</p>
                     @if(!$commodity->amount == 0)
                         <div class="input-group mb-3" style="width: 15%;margin-top: 2%">
-                            <input id="amount" type="text" class="form-control" value="1" onkeyup="value=value.replace(/[^(\d)]/g,'')">
+                            <input id="amount" type="text" class="form-control" value="1" onkeyup="value=value.replace(/[^(\d)]/g,'1')">
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-secondary" type="button" onclick="checkNum({{$commodity->id}},{{$commodity->amount}})">放入購物車</button>
                             </div>
                         </div>
                     @else
                         <span class="badge badge-dark" style="margin-top: 3%">商品已售完</span>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success" style="width: 15%;margin-top: 2%">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('fail'))
+                        <div class="alert alert-danger" style="width: 15%;margin-top: 2%">
+                            {{ session('fail') }}
+                        </div>
                     @endif
                 </div>
             </div>
@@ -46,9 +56,10 @@
     }
 
     function checkNum(commodity_id,amount){
+
         let input = $('#amount');
         let Num = input[0].value;
-        if(Num < 0 || Num > amount || isNaN(Num)){
+        if(Num < 0 || Num > amount || Num === '' ||isNaN(Num)){
             sweetAlert("輸入數值需在 1 ~ "+amount+" 之間");
             input.value = "1";
         }else{
