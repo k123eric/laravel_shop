@@ -40,7 +40,8 @@ Route::group(['prefix'=>'customer','as'=>'customer.'], function(){
     //將商品存進購物車
     Route::get('/cart/add/{commodity}/{amount}', 'OrderDetailController@store');
     //刪除購物車內商品
-    Route::get('/cart/delete/{order_detail}', 'OrderDetailController@destroy');
+    Route::get('/cart/delete', 'OrderDetailController@destroy')->name('cart_delete');
+
 });
 //登入頁面
 Route::get('/login',function(){
