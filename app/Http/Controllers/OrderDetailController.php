@@ -27,7 +27,7 @@ class OrderDetailController extends Controller
         $order_detail->name = $commodity-> name ;
         $order_detail->price = $commodity->price;
         $order_detail->buy_amount = $amount;
-        $order_detail->save();
+        $order_detail->image_url = $commodity->image_url;
 
         if(!empty($old_order_detail)){
             foreach ($old_order_detail as $buy_commodity){
@@ -47,25 +47,30 @@ class OrderDetailController extends Controller
         return redirect('customer/commodity/'.$commodity_id)->with('success','成功添加至購物車!');
     }
 
-    function destroy($commodity_id)
+    function destroy(Request $request)
     {
         $count_item = 0;
         $old_order_detail = Session::has('order_detail') ? Session::get('order_detail') : null;
 
+        $commodity_name = $request->input('commodity_name');
         foreach ($old_order_detail as $commodity){
-            if($commodity_id == $commodity->id){
+            if($commodity->name == $commodity_name){
                 if (count($old_order_detail) == 1) {
                     Session::forget('order_detail');
-                    return redirect('customer/cart')->with('success','刪除成功!');
+                    return response()->json([
+                        'msg' => '成功刪除商品!'
+                    ]);
                 }
                 unset($old_order_detail[$count_item]);
                 session()->put('order_detail', $old_order_detail);
-                return redirect('customer/cart')->with('success','刪除成功!');
-
+                return response()->json([
+                    'msg' => '成功刪除商品!'
+                ]);
             }
             $count_item ++;
         }
-
-        return redirect('customer/cart')->with('fail','未知原因導致刪除失敗!');
+        return response()->json([
+            'msg' => '未知原因導致刪除失敗!test'
+        ]);
     }
 }
