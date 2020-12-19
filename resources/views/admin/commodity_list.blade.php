@@ -43,9 +43,6 @@
         </div>
     </div>
     <script>
-        $(document).ready(function(){
-        })
-
         $('.list-group').find('#commodity_name').hover(function(){
             let img_card = $(this).parent().find('#img_card');
             img_card.css('display','');
