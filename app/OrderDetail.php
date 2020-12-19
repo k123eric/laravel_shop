@@ -11,5 +11,6 @@ class OrderDetail extends Model
         'name',
         'price',
         'buy_amount',
+        'image_url',
     ];
 }
