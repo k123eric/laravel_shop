@@ -20,8 +20,8 @@
                 <img src="{{$commodity->image_url}}" class="card-img-top" alt="無法顯示圖片" style="height:16rem">
                 <div class="card-body">
                     <h5 class="card-title">{{$commodity->name}}</h5>
-                    <p class="card-text">價格:{{$commodity->price}}</p>
-                    <a href="{{route('customer.commodity',['id'=>$commodity->id])}}" class="btn btn-primary">{{__('查看商品詳細')}}</a>`
+                    價格:<p class="card-text">{{$commodity->price}}</p>
+                    <a href="{{route('customer.commodity',['id'=>$commodity->id])}}" class="btn btn-primary">{{__('查看商品詳細')}}</a>
                 </div>
             </div>
         @endforeach
