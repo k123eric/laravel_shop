@@ -62,9 +62,16 @@
                         </div>
 
                         <div>
-                            <label class="col-md-3 control-label" for="textarea">圖片預覽</label>
+                            <label class="col-md-3 control-label" for="textarea">效果預覽</label>
                             <div class="col-md-9">
-                                <img id="image_preview" src="" class="img-thumbnail" alt="無法顯示圖片">
+                                <div class="card" style="width: 17rem;">
+                                    <img src="" class="card-img-top" alt="無法顯示圖片" id="image_preview" style="height:16rem">
+                                    <div class="card-body">
+                                        <h5 class="card-title" id="name_preview"></h5>
+                                        價格:<p class="card-text" id="price_preview"></p>
+                                        <a class="btn btn-primary">{{__('查看商品詳細')}}</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -90,7 +97,18 @@
                 $('#image_preview').attr('src', image_url);
             }
         });
+        $('input[name="name"]').keyup(function(){
+            let name = $(this).val();
+            let name_preview = $('#name_preview');
 
+            name_preview.text(name);
+        });
+        $('input[name="price"]').keyup(function(){
+            let price = $(this).val();
+            let price_preview = $('#price_preview');
+
+            price_preview.text(price);
+        });
         $('input[name="image_url"]').keyup(function(){
             let image_url = $(this).val();
             let image_preview = $('#image_preview');
