@@ -48,22 +48,22 @@
             </div>
         </div>
     </div>
-@endsection
 
-<script>
-    function new_commodity(commodity_id,amount){
-        window.location = '/customer/cart/add/'+commodity_id+'/'+amount;
-    }
-
-    function checkNum(commodity_id,amount){
-
-        let input = $('#amount');
-        let Num = input[0].value;
-        if(Num < 0 || Num > amount || Num === '' ||isNaN(Num)){
-            sweetAlert("輸入數值需在 1 ~ "+amount+" 之間");
-            input.value = "1";
-        }else{
-            new_commodity(commodity_id,Num);
+    <script>
+        function new_commodity(commodity_id,amount){
+            window.location = '/customer/cart/add/'+commodity_id+'/'+amount;
         }
-    }
-</script>
+
+        function checkNum(commodity_id,amount){
+
+            let input = $('#amount');
+            let Num = input[0].value;
+            if(Num < 0 || Num > amount || Num === '' ||isNaN(Num)){
+                sweetAlert("輸入數值需在 1 ~ "+amount+" 之間");
+                input.value = "1";
+            }else{
+                new_commodity(commodity_id,Num);
+            }
+        }
+    </script>
+@endsection
