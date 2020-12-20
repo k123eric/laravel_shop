@@ -18,34 +18,41 @@ class OrderDetailController extends Controller
         return view('customer/cart')->with('commodities',$old_order_detail);
     }
 
-    public function store(Request $request,$commodity_id,$amount)
+    public function store(Request $request)
     {
+        $commodity_id = $request->input('commodity_id');
+        $buy_amount = $request->input('buy_amount');
         $commodity = Commodity::where('id',$commodity_id)->first();
 
         $old_order_detail = Session::has('order_detail') ? Session::get('order_detail') : null;
         $order_detail = new OrderDetail;
         $order_detail->name = $commodity-> name ;
         $order_detail->price = $commodity->price;
-        $order_detail->buy_amount = $amount;
+        $order_detail->buy_amount = $buy_amount;
         $order_detail->image_url = $commodity->image_url;
 
         if(!empty($old_order_detail)){
             foreach ($old_order_detail as $buy_commodity){
                 if($order_detail->name == $buy_commodity->name){
-                    if($buy_commodity->buy_amount + $amount > $commodity->amount){
-                        return redirect('customer/commodity/'.$commodity_id)->with('fail','購買數量大於商品數量!');
+                    if($buy_commodity->buy_amount + $buy_amount > $commodity->amount){
+                        return response()->json([
+                            'msg' => '購買數量大於商品數量!'
+                        ]);
                     }
-                    $buy_commodity->buy_amount += $amount;
+                    $buy_commodity->buy_amount += $buy_amount;
                     $request->session()->put('order_detail', $old_order_detail);
-                    return redirect('customer/commodity/'.$commodity_id)->with('success','成功添加至購物車!');
+                    return response()->json([
+                        'msg' => '成功添加至購物車!'
+                    ]);
                 }
             }
         }
 
         $request->session()->put('order_detail', $old_order_detail);
         $request->session()->push('order_detail', $order_detail);
-        return redirect('customer/commodity/'.$commodity_id)->with('success','成功添加至購物車!');
-    }
+        return response()->json([
+            'msg' => '成功添加至購物車!'
+        ]);    }
 
     function destroy(Request $request)
     {
@@ -70,7 +77,7 @@ class OrderDetailController extends Controller
             $count_item ++;
         }
         return response()->json([
-            'msg' => '未知原因導致刪除失敗!test'
+            'msg' => '未知原因導致刪除失敗!'
         ]);
     }
 }
