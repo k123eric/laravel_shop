@@ -30,8 +30,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ url('/customer/shop') }}">Home</a>
                         </li>
-                        <li class="nav-item dropdown" style="position:fixed;margin-left: 1620px;user-select:none;">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" aria-expanded="false">
+                        <img class="nav-item" src="@if(Auth::check()){{Auth::user()->image_url}}@else https://img.linetv.tw/other/memberSystem/accountkitPhoto1.png @endif" alt="" style="border-radius: 50%;margin-left: 1540px;margin-top:6px" width="24" height="24">
+                        <li class="nav-item dropdown" style="user-select:none;">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" aria-expanded="false" style="align-items: center">
                                 @if(Auth::check())
                                     {{Auth::user()->name}}
                                     @else
