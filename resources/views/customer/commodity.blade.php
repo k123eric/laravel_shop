@@ -15,23 +15,12 @@
                     <p class="card-text" style="margin-top: 1%">商品剩餘數量:{{$commodity->amount}}</p>
                     @if(!$commodity->amount == 0)
                         <div class="input-group mb-3" style="width: 15%;margin-top: 2%">
+                            <label class="control-label" for="amount"></label>
                             <input id="amount" type="text" class="form-control" value="1" onkeyup="value=value.replace(/[^(\d)]/g,'1')">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" type="button" onclick="checkNum({{$commodity->id}},{{$commodity->amount}})">放入購物車</button>
-                            </div>
+                            <button class="btn btn-outline-secondary" id="add_to_cart_button" type="button">放入購物車</button>
                         </div>
                     @else
                         <span class="badge badge-dark" style="margin-top: 3%">商品已售完</span>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success" style="width: 15%;margin-top: 2%">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('fail'))
-                        <div class="alert alert-danger" style="width: 15%;margin-top: 2%">
-                            {{ session('fail') }}
-                        </div>
                     @endif
                 </div>
             </div>
@@ -50,20 +39,62 @@
     </div>
 
     <script>
-        function new_commodity(commodity_id,amount){
-            window.location = '/customer/cart/add/'+commodity_id+'/'+amount;
-        }
+        $('#add_to_cart_button').click(function(){
+            if (checkNum({{$commodity->amount}})) {
+                swal({
+                    text: "確定是否添加此商品至購物車",
+                    buttons: {
+                        cancel: {
+                            text: "取消",
+                            value: false,
+                            visible: true,
+                            className: "",
+                            closeModal: true
+                        },
+                        confirm: {
+                            text: "確認",
+                            value: true,
+                            visible: true,
+                            className: "add_to_cart",
+                            closeModal: true
+                        }
+                    }
+                }).then((value) =>{
+                    if(value){
+                        add_to_cart();
+                    }
+                })
+            }
+        })
 
-        function checkNum(commodity_id,amount){
-
+        function checkNum(amount){
             let input = $('#amount');
             let Num = input[0].value;
-            if(Num < 0 || Num > amount || Num === '' ||isNaN(Num)){
+            if(Num <= 0 || Num > amount || Num === '' ||isNaN(Num)){
                 sweetAlert("輸入數值需在 1 ~ "+amount+" 之間");
                 input.value = "1";
-            }else{
-                new_commodity(commodity_id,Num);
+                return false;
             }
+            return true;
+        }
+
+        function add_to_cart(){
+            $.ajax(
+                {
+                    url: '{{route('customer.add_to_cart')}}',
+                    type: 'get',
+                    data:{
+                        'commodity_id' : '{{$commodity->id}}',
+                        'buy_amount': $('#amount')[0].value,
+                    },
+                    dataType: "JSON",
+                    success: function (data) {
+                        swal(data.msg);
+                    },
+                    error: function () {
+                        swal("因未知原因添加失敗!")
+                    }
+                });
         }
     </script>
 @endsection
