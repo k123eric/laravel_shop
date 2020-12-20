@@ -29,7 +29,7 @@ class CommodityController extends Controller
         return view('/customer/commodity')->with('commodity',$commodity);
     }
 
-    public function store(Request $request,Commodity $commodity)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|max:16|min:1|unique:commodities',
@@ -60,12 +60,6 @@ class CommodityController extends Controller
             'introduction' => 'required|max:255',
             'image_url' => 'required|max:255|url'
         ]);
-
-        $name = $request->old('name');
-        $price = $request->old('price');
-        $amount = $request->old('amount');
-        $introduction = $request->old('introduction');
-        $image_url = $request->old('image_url');
 
         Commodity::where('id',$request->id)->update([
             'name' => $request->name,
