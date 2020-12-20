@@ -15,6 +15,12 @@
             </tr>
             </thead>
             <tbody>
+            <tr>
+                <td class="text-center text-muted" id="non_commodity" colspan="5" style="display: none">
+                    現在購物車中沒有任何商品，馬上去購物吧！
+                    <a href="{{ url('/customer/shop')}}" class="btn btn-outline-primary">商品區</a>
+                </td>
+            </tr>
             @if(isset($commodities))
                 @foreach ($commodities as $commodity)
                     <tr class="text-center commodity" style="line-height:54px;">
@@ -32,7 +38,7 @@
                         </td>
                     </tr>
                 @endforeach
-                <tr class="text-center">
+                <tr class="text-center" id="all_price_tr">
                     <td colspan="3" style="padding-top: 20px"><h5>總價</h5></td>
                     <td colspan="2" style="padding-top: 20px" id="all_price">1</td>
                 </tr>
@@ -48,8 +54,8 @@
         </table>
         <div>
             @if(isset($commodities))
-                <a href="{{ url('/customer/shop')}}">繼續購物</a>
-                <button type="button" class="btn btn-primary" style="float:right;margin-top: 10px">前往結帳</button>
+                <a id="keep_shopping" href="{{ url('/customer/shop')}}">繼續購物</a>
+                <button type="button" id="checkout_button" class="btn btn-primary" style="float:right;margin-top: 10px">前往結帳</button>
             @endif
             @if (session('success'))
                 <div class="alert alert-success" style="margin-top: 30px">
@@ -119,13 +125,10 @@
                             dataType: "JSON",
                             success: function (data) {
                                 swal(data.msg);
-                                let ul_commodity_name = $('#commodity_name');
-                                let ul_all_price = $('#all_price');
-                                let price = parseInt(ul_commodity_name.parent().find('#price').text(),10);
-                                let all_price = ul_all_price.text();
-                                all_price -= price;
-                                ul_all_price.text(all_price);
-                                ul_commodity_name.parent().remove();
+                                set_tr_after_delete();
+                                if($('.commodity').length === 0){
+                                    clean_tr();
+                                }
                             },
                             error: function () {
                                 swal("因未知原因刪除失敗!")
@@ -142,6 +145,23 @@
                 all_price += parseInt(price[i].innerText,10);
             }
             $('#all_price').text(all_price);
+        }
+
+        function set_tr_after_delete(){
+            let td_commodity_name = $('#commodity_name');
+            let td_all_price = $('#all_price');
+            let price = parseInt(td_commodity_name.parent().find('#price').text(),10);
+            let all_price = td_all_price.text();
+            all_price -= price;
+            td_all_price.text(all_price);
+            td_commodity_name.parent().remove();
+        }
+
+        function clean_tr(){
+            $('#non_commodity').css('display','');
+            $('#all_price_tr').remove();
+            $('#keep_shopping').remove();
+            $('#checkout_button').remove();
         }
     </script>
 @endsection
