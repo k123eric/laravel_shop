@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\OrderDetail;
 use App\User;
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +43,18 @@ class UserController extends Controller
         $password = $request->password;
         Auth::attempt(['email'=>$email, 'password'=>$password]);
         if(Auth::check()){
+            if (Session::has('order_detail')) {
+                $session_order_details = Session::get('order_detail');
+                foreach($session_order_details as $order_detail){
+                    OrderDetail::create([
+                        'user_id' => Auth::user()->id ,
+                        'name' => $order_detail->name,
+                        'price' => $order_detail->price,
+                        'buy_amount' => $order_detail->buy_amount,
+                        'image_url' => $order_detail->image_url,
+                    ]);
+                }
+            }
             return redirect(route('customer.shop'))->with('status', '登入成功!');
         }else{
             return redirect(route('login'))->with('status', '登入失敗!');
