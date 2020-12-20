@@ -59,4 +59,7 @@ Route::post('/register','UserController@register')->name('register');
 //登出
 Route::get('/logout','UserController@logout')->name('logout');
 
+Route::get('/user_profile',function (){
+    return view('/user/user_profile');
+})->name('user_profile');
 //Auth::routes();

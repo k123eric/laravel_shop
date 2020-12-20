@@ -41,7 +41,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 @if(Auth::check())
-                                    <li><a class="dropdown-item" href="#">個人資料</a></li>
+                                    <li><a class="dropdown-item" href="{{route('user_profile')}}">個人資料</a></li>
                                     <li><a class="dropdown-item" href="#">購物車</a></li>
                                     <li><a class="dropdown-item" href="#">購買紀錄</a></li>
                                     <li><hr class="dropdown-divider"></li>
